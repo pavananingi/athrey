@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  environment{
+    def user = "ubuntu"
+    def server = "80.158.20.184"
+    def build_steps = "pwd && \
+                    sudo apt update  && \
+                    sudo systemctl status nginx && \
+                    cd /home/ubuntu/doccura-plus-server && \
+                    sudo git pull origin test && \
+                    npm install && \
+                    sudo systemctl restart nginx && \
+                    sudo systemctl status nginx && \
+                    pm2 start index"
+  }
+  stages {
+      stage('Deploy') {
+          steps {
+             sshagent(['Jenkins-Connect']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $user $server '$build_steps'"
+             }
+         }
+      }
+   }
+}

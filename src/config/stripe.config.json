@@ -1,0 +1,26 @@
+{
+  "development": {
+    "defaultTaxRate": "",
+    "prorationType": "",
+    "privateKey": "",
+    "publicKey": ""
+  },
+  "test": {
+    "defaultTaxRate": "",
+    "prorationType": "",
+    "privateKey": "",
+    "publicKey": ""
+  },
+  "production": {
+    "defaultTaxRate": "",
+    "prorationType": "",
+    "privateKey": "",
+    "publicKey": ""
+  },
+  "production-web": {
+    "defaultTaxRate": "",
+    "prorationType": "",
+    "privateKey": "",
+    "publicKey": ""
+  }
+}

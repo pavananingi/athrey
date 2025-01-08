@@ -1,0 +1,70 @@
+{
+    "development": {
+        "otc": {
+            "tokenEndPoint": "",
+            "username": "",
+            "domain": "",
+            "password": "",
+            "projectID": ""
+        },
+        "diagnosisReqQ": {
+            "queueID": "",
+            "consumerGroupID": "",
+            "maxMsgs": 1,
+            "waitTime": 60,
+            "ackWait": 30,
+            "endpoint": ""
+        }
+    },
+    "test": {
+        "otc": {
+            "tokenEndPoint": "",
+            "username": "",
+            "domain": "",
+            "password": "",
+            "projectID": ""
+        },
+        "diagnosisReqQ": {
+            "queueID": "",
+            "consumerGroupID": "",
+            "maxMsgs": 1,
+            "waitTime": 60,
+            "ackWait": 30,
+            "endpoint": ""
+        }
+    },
+    "production": {
+        "otc": {
+            "tokenEndPoint": "",
+            "username": "",
+            "domain": "",
+            "password": "",
+            "projectID": ""
+        },
+        "diagnosisReqQ": {
+            "queueID": "",
+            "consumerGroupID": "",
+            "maxMsgs": 1,
+            "waitTime": 60,
+            "ackWait": 30,
+            "endpoint": ""
+        }
+    },
+    "production-web": {
+        "otc": {
+            "tokenEndPoint": "",
+            "username": "",
+            "domain": "",
+            "password": "",
+            "projectID": ""
+        },
+        "diagnosisReqQ": {
+            "queueID": "",
+            "consumerGroupID": "",
+            "maxMsgs": 1,
+            "waitTime": 60,
+            "ackWait": 30,
+            "endpoint": ""
+        }
+    }
+}

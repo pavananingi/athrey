@@ -1,0 +1,89 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Deploy-Production
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Sending notification on telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: '-483433693'
+          token: ${{ secrets.TELEGRAM_TEST_BOT }}
+          message: '***** Updating app.doccuraplus.'
+
+      - name: Getting new changes
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.OTC_PROD_EIP }}
+          username: ${{ secrets.OTC_PROD_USERNAME }}
+          key: ${{ secrets.OTC_PROD_SSH }}
+          port: 22
+          script: |
+            cd doccura-plus-server 
+            git checkout master
+            git pull
+
+      - name: Installing packages in PRODUCTION
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.OTC_PROD_EIP }}
+          username: ${{ secrets.OTC_PROD_USERNAME }}
+          key: ${{ secrets.OTC_PROD_SSH }}
+          port: 22
+          script: |
+            cd doccura-plus-server
+            git checkout master
+            git pull
+            npm install
+
+      - name: Performing migrations in PRODUCTION
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.OTC_PROD_EIP }}
+          username: ${{ secrets.OTC_PROD_USERNAME }}
+          key: ${{ secrets.OTC_PROD_SSH }}
+          port: 22
+          script: |
+            cd doccura-plus-server
+            git checkout master
+            npx sequelize db:migrate --env=production
+
+      - name: Restarting app.doccuraplus
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.OTC_PROD_EIP }}
+          username: ${{ secrets.OTC_PROD_USERNAME }}
+          key: ${{ secrets.OTC_PROD_SSH }}
+          port: 22
+          script: |
+            pm2 restart app.doccuraplus
+
+      - name: Sending notification on telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: '-483433693'
+          token: ${{ secrets.TELEGRAM_TEST_BOT }}
+          message: |
+            '***** Updated app.doccuraplus'
+            * Installed packages & Performed migration (env:production)
+            * Restarted app.doccuraplus service

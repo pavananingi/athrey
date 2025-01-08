@@ -1,0 +1,86 @@
+{
+  "originUrl": {
+    "development": {
+      "http": "http://athrey-bdev.edalytics.com",
+      "https": "https://athrey-bdev.edalytics.com",
+      "www": {
+        "http": "http://www.athrey-bdev.edalytics.com",
+        "https": "https://www.athrey-bdev.edalytics.com"
+      }
+    },
+    "test": {
+      "http": "http://athrey-bdev.edalytics.com",
+      "https": "https://athrey-bdev.edalytics.com",
+      "www": {
+        "http": "http://www.athrey-bdev.edalytics.com",
+        "https": "https://www.athrey-bdev.edalytics.com"
+      }
+    },
+    "production": {
+      "http": "http://athrey-bdev.edalytics.com",
+      "https": "https://athrey-bdev.edalytics.com",
+      "www": {
+        "http": "http://www.athrey-bdev.edalytics.com",
+        "https": "https://www.athrey-bdev.edalytics.com"
+      }
+    },
+    "production-web": {
+      "http": "http://athrey-bdev.edalytics.com",
+      "https": "https://athrey-bdev.edalytics.com",
+      "www": {
+        "http": "http://www.athrey-bdev.edalytics.com",
+        "https": "https://www.athrey-bdev.edalytics.com"
+      }
+    }
+  },
+  "password": {
+    "salt": 12
+  },
+  "loginTrails": 10,
+  "bruteForceDuration": 10,
+  "numberOfBruteForceAttempts": 5,
+  "blockedDuration": 1800,
+  "emailLinkExpirationDuration": 18000,
+  "jwt": {
+    "keySize": "1024",
+    "privateKey": "/keys/private.key",
+    "publicKey": "/keys/public.key",
+    "issuer": "athrey",
+    "algorithm": "RS256"
+  },
+  "verificationToken": {
+    "jwtOptions": {
+      "expiry": "60min",
+      "tempExpiry": "1440min"
+    }
+  },
+  "bearerToken": {
+    "jwtOptions": {
+      "expiry": "15min"
+    }
+  },
+  "refreshToken": {
+    "jwtOptions": {
+      "expiry": "4d"
+    },
+    "storage": {
+      "pathPrefix": "doc_plus:sess:",
+      "ttl": 172800
+    },
+    "cookie": {
+      "name": "doc_plus_refresh",
+      "config": {
+        "maxAge": 86400000,
+        "httpOnly": true,
+        "secure": true,
+        "sameSite": "None"
+      }
+    }
+  },
+  "passwordReset": {
+    "storage": {
+      "ttl": 900,
+      "pathPrefix": "doc:reset:"
+    }
+  }
+}

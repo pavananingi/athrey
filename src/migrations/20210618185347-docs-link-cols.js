@@ -1,0 +1,31 @@
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return Promise.all([
+      queryInterface.addColumn("Consultation_doctors", "diagnosis_path", {
+        allowNull: true,
+        type: Sequelize.STRING(1000),
+        defaultValue: null
+      }),
+      queryInterface.addColumn("Consultation_doctors", "leave_letter_path", {
+        allowNull: true,
+        type: Sequelize.STRING(4000),
+        defaultValue: null
+      }),
+      queryInterface.addColumn("Consultation_doctors", "prescription_path", {
+        allowNull: true,
+        type: Sequelize.STRING(1000),
+        defaultValue: null
+      }),
+    ])
+  },
+
+  down: (queryInterface, Sequelize) => {
+    return Promise.all([
+      queryInterface.removeColumn("Consultation_doctors", "diagnosis_path"),
+      queryInterface.removeColumn("Consultation_doctors", "leave_letter_path"),
+      queryInterface.removeColumn("Consultation_doctors", "prescription_path"),
+    ])
+  }
+};

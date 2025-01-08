@@ -1,0 +1,50 @@
+{
+  "development": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "timezone": "+05:30"
+  },
+  "uat": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "timezone": "+05:30"
+  },
+  "production": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "timezone": "+05:30"
+  }
+}

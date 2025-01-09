@@ -1,22 +1,22 @@
 FROM node:16.14
 
-# Create app directory
+#Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files
+#Copy package.json and package-lock.json for dependency installation
 COPY package*.json ./
 
-# Install dependencies
+#Install dependencies
 RUN npm install
 
-# Install additional packages
+#Install additional packages
 RUN npm install bcrypt@latest
 
-# Copy the rest of the application
+#Copy the entire application, including the src folder and all files
 COPY . .
 
-# Expose port
+#Expose port 3000
 EXPOSE 3000
 
-# Start the application
+#Start the application
 CMD ["npm", "start"]

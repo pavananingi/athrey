@@ -33,6 +33,11 @@ jobs:
         branch=${{ github.event.inputs.branch }}
         echo "Fetching PRs for branch: $branch"
 
+        # Debug: Fetch raw PR data for the specified branch
+        echo "Debug: Fetching raw PR data"
+        gh pr list --base "$branch" --state all --json number,title > raw_output.json || true
+        cat raw_output.json
+
         # Count PRs raised
         pr_count=$(gh pr list --base "$branch" --state open --json number | jq 'length')
         echo "Number of PRs raised in branch '$branch': $pr_count"

@@ -1,0 +1,58 @@
+name: Count PRs in a Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch name to check PR stats"
+        required: true
+        default: "main"
+
+jobs:
+  count-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install gh CLI
+      run: |
+        sudo apt update
+        sudo apt install gh -y
+
+    - name: Authenticate gh CLI
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh auth setup-git
+        gh auth login --with-token <<< "$GH_TOKEN"
+
+    - name: Fetch PRs raised and merged
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        branch=${{ github.event.inputs.branch }}
+        echo "Fetching PRs for branch: $branch"
+
+        # Count PRs raised
+        pr_count=$(gh pr list --base "$branch" --state open --json number | jq 'length')
+        echo "Number of PRs raised in branch '$branch': $pr_count"
+
+        # Count PRs merged
+        merged_count=$(gh pr list --base "$branch" --state merged --json number | jq 'length')
+        echo "Number of PRs merged in branch '$branch': $merged_count"
+
+        # Set output variables
+        echo "pr_count=$pr_count" >> $GITHUB_ENV
+        echo "merged_count=$merged_count" >> $GITHUB_ENV
+
+    - name: Display results
+      run: |
+        echo "Pull Requests Raised: $pr_count"
+        echo "Pull Requests Merged: $merged_count"
